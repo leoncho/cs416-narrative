@@ -1,6 +1,32 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <!-- Include D3 library version 7 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Include d3-annotation -->
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <!-- Include CSS Stylesheet -->
+    <link rel="stylesheet" href="css/narrative.css">
+</head>
 <body>
-	<p>CS416 Narrative - Placeholder</p>
+    <div id='title'>
+        <h1 class="header-title">How employed people spend their time on workdays has shifted since the pandemic...</h1>
+    </div>
+
+    <div id='menu'>
+        <button id="nav-button-1" class="nav-button" onclick='updateSlide(1)'>SLIDE 1</button>
+        <button id="nav-button-2" class="nav-button" onclick='updateSlide(2)'>SLIDE 2</button>
+        <button id="nav-button-3" class="nav-button" onclick='updateSlide(3)'>SLIDE 3</button>
+    </div>
+
+    <div id='slide-header'>
+        <h2 id='slide-title' class="slide-title">Subtitle</h2>
+    </div>
+
+    <!-- Create a container to host the chart -->
+    <div id="chart_div"></div>
+
+    <script type="text/javascript" src="js/narrative.js"></script>
 </body>
 </html>
-
