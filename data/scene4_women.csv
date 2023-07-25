@@ -1,0 +1,25 @@
+group,subgroup,value
+Personal Care,2019,9.10
+Personal Care,2022,9.18
+Household Activities,2019,1.25
+Household Activities,2022,1.36
+Care for Household Members,2019,0.64
+Care for Household Members,2022,0.58
+Care for Non-Household Members,2019,0.13
+Care for Non-Household Members,2022,0.10
+Work and Work-Related,2019,7.76
+Work and Work-Related,2022,7.81
+Education,2019,0.19
+Education,2022,0.12
+Shopping,2019,0.56
+Shopping,2022,0.44
+Eating/Drinking,2019,1.01
+Eating/Drinking,2022,1.08
+Leisure and Sports,2019,2.81
+Leisure and Sports,2022,2.87
+Civic/Religious,2019,0.18
+Civic/Religious,2022,0.16
+Communication,2019,0.14
+Communication,2022,0.12
+Other,2019,0.23
+Other,2022,0.19
