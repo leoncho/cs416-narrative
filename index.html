@@ -10,20 +10,42 @@
     <link rel="stylesheet" href="css/narrative.css">
 </head>
 <body>
-    <div id='title'>
+    <div id="title">
         <h1 class="header-title">How employed people spend their time on workdays has shifted since the pandemic...</h1>
     </div>
 
-    <div id='menu'>
+    <div id="menu">
         <button id="nav-button-1" class="nav-button" onclick='updateSlide(1)'>SLIDE 1</button>
         <button id="nav-button-2" class="nav-button" onclick='updateSlide(2)'>SLIDE 2</button>
         <button id="nav-button-3" class="nav-button" onclick='updateSlide(3)'>SLIDE 3</button>
+        <button id="nav-button-4" class="nav-button" onclick='updateSlide(4)'>EXPLORE</button>
     </div>
 
-    <div id='slide-header'>
+    <div id="slide-header">
         <h2 id='slide-title' class="slide-title">Subtitle</h2>
     </div>
 
+    <div id="chart-menu">
+        <select id="select-activity" class="select-menu" onchange="updateSlide(4)">
+            <option value="Personal Care">Personal Care</option>
+            <option value="Household Activities">Household Activities</option>
+            <option value="Care for Household Members">Care for Household Members</option>
+            <option value="Care for Non-Household Members">Care for Non-Household Members</option>
+            <option value="Work and Work-Related">Work and Work-Related</option>
+            <option value="Education">Education</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Eating/Drinking">Eating/Drinking</option>
+            <option value="Leisure and Sports">Leisure and Sports</option>
+            <option value="Civic/Religious">Civic/Religious</option>
+            <option value="Communication">Communication</option>
+            <option value="Other">Other</option>
+        </select>
+        <select id="select-sex" class="select-menu" onchange="updateSlide(4)">
+            <option value="both">All Genders</option>
+            <option value="men">Men</option>
+            <option value="women">Women</option>
+        </select>
+    </div>  
     <!-- Create a container to host the chart -->
     <div id="chart_div"></div>
 

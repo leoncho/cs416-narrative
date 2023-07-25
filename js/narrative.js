@@ -4,7 +4,7 @@ const width = 450 - margin.left - margin.right;
 const height = 350 - margin.top - margin.bottom;
 
 // Function updateChart: Clears previous chart and draws grouped bar chart
-function updateChart(dataFile, chartTitle) {
+function updateChart(dataFile, chartTitle, activityFilter) {
   // Remove any existing svg element so canvas is cleared from previous chart
   d3.select("svg").remove()
 
@@ -26,11 +26,25 @@ function updateChart(dataFile, chartTitle) {
     // chartValues is a data structure that holds all the values for the grouped bar chart
     //   It is nested arrays. The top level is an array of groups where each group is a
     //   group key and an array of subgroup key/value pairs.
-    const chartValues = d3.rollups(data, v => d3.sum(v, d => d.value), d => d.group, d => d.subgroup)
+    var chartValues = d3.rollups(data, v => d3.sum(v, d => d.value), d => d.group, d => d.subgroup)
     // console.log("chartValues")
     // console.log(chartValues)
+
+    // If this is interactive dashboard (scene 4), filter out only the activity selected
+    // in the pull-down menu
+    var filterIndex = -1
+    if (activityFilter != null) {
+      for (let i=0; i < chartValues.length; i++) {
+        if (chartValues[i][0] == activityFilter) {
+          filterIndex = i
+        }
+      }
+      chartValues = [chartValues[filterIndex]]
+    }
+
     // groupNames is an array of the y-axis labels
     const groupNames = Array.from(chartValues).map(d => d[0])
+
     // subGroupNames is an array of the key names of the bars in each group
     const subGroupNames = Array.from(Array.from(chartValues)[0][1]).map(d=>d[0])
     
@@ -144,7 +158,7 @@ function updateChart(dataFile, chartTitle) {
     .append("text")
       .attr("class", "tooltip-instructions")
       .attr("x", -(margin.left)*0.7 + 300)
-      .attr("y", -(margin.top)/1.5 + 3)
+      .attr("y", -(margin.top)/1.5 + 6)
       .attr("text-anchor", "start")
     .text("Move mouse over bars in")
 
@@ -152,7 +166,7 @@ function updateChart(dataFile, chartTitle) {
     .append("text")
       .attr("class", "tooltip-instructions")
       .attr("x", -(margin.left)*0.7 + 300)
-      .attr("y", -(margin.top)/1.5+10)
+      .attr("y", -(margin.top)/1.5+16)
       .attr("text-anchor", "start")
     .text("chart to see details")
 
@@ -358,9 +372,12 @@ function updateChart(dataFile, chartTitle) {
         document.getElementById("nav-button-1").className = "nav-button-select"
         document.getElementById("nav-button-2").className = "nav-button"
         document.getElementById("nav-button-3").className = "nav-button"
+        document.getElementById("nav-button-4").className = "nav-button"
+        document.getElementById("chart-menu").style.display = "none"
         updateChart(
           "scene1.csv",
-          "Time Spent by Activity"
+          "Time Spent by Activity",
+          null
         )
         document.getElementById("slide-title").innerHTML = "Are we becoming more selfish? People are spending more time on personal care and leisure -- and less time on caring for others and work."
         updateAnnotation(1)
@@ -369,9 +386,12 @@ function updateChart(dataFile, chartTitle) {
         document.getElementById("nav-button-2").className = "nav-button-select"
         document.getElementById("nav-button-1").className = "nav-button"
         document.getElementById("nav-button-3").className = "nav-button"
+        document.getElementById("nav-button-4").className = "nav-button"
+        document.getElementById("chart-menu").style.display = "none"
         updateChart(
           "scene2.csv",
-          "Time Worked by Gender"
+          "Time Worked by Gender",
+          null
         )
         document.getElementById("slide-title").innerHTML = "Men are working less and women are working more."
         updateAnnotation(2)
@@ -380,12 +400,36 @@ function updateChart(dataFile, chartTitle) {
         document.getElementById("nav-button-3").className = "nav-button-select"
         document.getElementById("nav-button-1").className = "nav-button"
         document.getElementById("nav-button-2").className = "nav-button"
+        document.getElementById("nav-button-4").className = "nav-button"
+        document.getElementById("chart-menu").style.display = "none"
         updateChart(
           "scene3.csv",
-          "Time Spent by Leisure Activity"
+          "Time Spent by Leisure Activity",
+          null
         )
-        document.getElementById("slide-title").innerHTML = "Are we getting more isolated? People are socializing less and spending more time on solitary activities."
+        document.getElementById("slide-title").innerHTML = "Are we getting more isolated? People are socializing less and spending more time on solitary leisure activities."
         updateAnnotation(3)
+        break;
+      case 4:
+        document.getElementById("nav-button-1").className = "nav-button"
+        document.getElementById("nav-button-2").className = "nav-button"
+        document.getElementById("nav-button-3").className = "nav-button"
+        document.getElementById("nav-button-4").className = "nav-button-select"
+        document.getElementById("chart-menu").style.display = "block"
+        document.getElementById("slide-title").innerHTML = "Now explore the data yourself! Use the drop-down menus below to filter by activity and gender."
+        
+        // Set arguments to updateChart based on user selections in the pull-down menus
+        var selectSex = document.getElementById("select-sex")
+        var selectedSex = selectSex.options[selectSex.selectedIndex].text
+        var csvFileName = "scene4_" + selectSex.value + ".csv"
+        var selectedActivity = document.getElementById("select-activity").value
+        var chartTitle = "Time Spent on " + selectedActivity + " for " + selectedSex
+        
+        updateChart(
+          csvFileName,
+          chartTitle,
+          selectedActivity
+        )
         break;
       default:
         console.log("ERROR: No slide with this number")

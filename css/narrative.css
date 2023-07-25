@@ -49,6 +49,16 @@ text {
   font-weight: bold;
   color:#222222
 }
+.select-menu {
+  font-family: roboto;
+  background-color: white; 
+  padding: 4px 10px;
+  color: black; 
+  border: 2px solid #0073BB;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
 .slide-title {
   font-family: roboto;
   font-size: 28px;
